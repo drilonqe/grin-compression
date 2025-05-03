@@ -168,7 +168,7 @@ public class HuffmanTree {
      * @param in  the file to decompress.
      * @param out the file to write the decompressed output to.
      * 
-     * // classmate fui gave me advice for this function
+     *            // classmate fui gave me advice for this function
      */
     public void decode(BitInputStream in, BitOutputStream out) {
         Node cur = root; // start from the root
@@ -176,7 +176,7 @@ public class HuffmanTree {
         while (isRunning) {
             int bit = in.readBit();
             if (bit == -1) {
-            throw new IllegalStateException(); // stream is empty
+                throw new IllegalStateException(); // stream is empty
             }
             if (bit == 0) {
                 cur = cur.left; // move to the left
@@ -197,5 +197,6 @@ public class HuffmanTree {
                 cur = root;
             }
 
+        }
     }
 }
