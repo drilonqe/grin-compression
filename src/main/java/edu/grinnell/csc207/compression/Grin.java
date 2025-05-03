@@ -1,6 +1,7 @@
 package edu.grinnell.csc207.compression;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -40,10 +41,25 @@ public class Grin {
      * 
      * @param file the file to read
      * @return a freqency map for the given file
+     * @throws IOException
      */
-    public static Map<Short, Integer> createFrequencyMap(String file) {
-        // TODO: fill me in!
-        return null;
+    public static Map<Short, Integer> createFrequencyMap(String file) throws IOException {
+        Map<Short, Integer> frequencyMap = new HashMap<>();
+        BitInputStream input = new BitInputStream(file);
+        int bitsRead = input.readBits(8); // consume 8 bits at a time
+        while (bitsRead != -1) {
+            short asShort = (short) bitsRead;
+
+            if (frequencyMap.containsKey(asShort)) {
+                int count = frequencyMap.get(asShort);
+                frequencyMap.put(asShort, count + 1); // count is incremented if there is multiple instances
+            } else {
+                frequencyMap.put(asShort, 1); // count is 1 if the map does not already contain the key
+            }
+            bitsRead = input.readBits(8); // read next
+        }
+        input.close();
+        return frequencyMap;
     }
 
     /**
@@ -61,7 +77,7 @@ public class Grin {
      * The entry point to the program.
      * 
      * @param args the command-line arguments.
-     * @throws IOException 
+     * @throws IOException
      */
     public static void main(String[] args) throws IOException {
         if (args.length != 3) {
@@ -73,7 +89,7 @@ public class Grin {
         String outfile = args[2];
 
         if (action.equals("decode")) {
-            decode(infile, outfile); 
+            decode(infile, outfile);
         } else {
             encode(infile, outfile);
         }
