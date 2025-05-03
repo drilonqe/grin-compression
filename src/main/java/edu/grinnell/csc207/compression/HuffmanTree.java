@@ -1,5 +1,7 @@
 package edu.grinnell.csc207.compression;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.PriorityQueue;
 
@@ -156,7 +158,8 @@ public class HuffmanTree {
      * @param out the file to write the compressed output to.
      */
     public void encode(BitInputStream in, BitOutputStream out) {
-        // TODO: fill me in!
+            // still needs to be implemented
+
     }
 
     /**
